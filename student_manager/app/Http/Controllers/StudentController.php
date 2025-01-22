@@ -14,8 +14,15 @@ class StudentController extends Controller
      */
     public function index()
     {
-        $students = Student::with('marks')->get();
-        return view('students.index', compact('students'));
+        $students = Student::select('students.id', 'students.name', 'student_marks.subject', 'student_marks.marks')
+        ->join('student_marks', 'students.id', '=', 'student_marks.student_id')
+        ->get();
+
+    $students = $students->groupBy('id');
+
+    return view('students.index', compact('students'));
+
+        
     }
 
     /**

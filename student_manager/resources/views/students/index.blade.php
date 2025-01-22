@@ -1,4 +1,3 @@
-<!-- filepath: /C:/Users/sahal/Desktop/machinetest/student_manager/resources/views/students/index.blade.php -->
 <!DOCTYPE html>
 <html>
 <head>
@@ -23,27 +22,27 @@
             </tr>
         </thead>
         <tbody>
-            @foreach($students as $student)
+            @foreach($students as $studentId => $studentGroup)
                 <tr>
-                    <td>{{ $student->name }}</td>
+                    <td>{{ $studentGroup->first()->name }}</td>
                     <td>
                         <ul class="list-unstyled mb-0">
-                            @foreach($student->marks as $mark)
-                                <li>{{ $mark->subject }}</li>
+                            @foreach($studentGroup as $student)
+                                <li>{{ $student->subject }}</li>
                             @endforeach
                         </ul>
                     </td>
                     <td>
                         <ul class="list-unstyled mb-0">
-                            @foreach($student->marks as $mark)
-                                <li>{{ $mark->marks }}</li>
+                            @foreach($studentGroup as $student)
+                                <li>{{ $student->marks }}</li>
                             @endforeach
                         </ul>
                     </td>
                     <td>
-                        <a href="{{ route('students.show', $student->id) }}" class="btn btn-info btn-sm mb-1">View</a>
-                        <a href="{{ route('students.edit', $student->id) }}" class="btn btn-warning btn-sm mb-1">Edit</a>
-                        <form action="{{ route('students.destroy', $student->id) }}" method="POST" style="display:inline;">
+                        <a href="{{ route('students.show', $studentId) }}" class="btn btn-info btn-sm mb-1">View</a>
+                        <a href="{{ route('students.edit', $studentId) }}" class="btn btn-warning btn-sm mb-1">Edit</a>
+                        <form action="{{ route('students.destroy', $studentId) }}" method="POST" style="display:inline;">
                             @csrf
                             @method('DELETE')
                             <button type="submit" class="btn btn-danger btn-sm">Delete</button>
